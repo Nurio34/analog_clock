@@ -1,0 +1,294 @@
+@import url("https://fonts.googleapis.com/css2?family=Overpass:wght@300;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap");
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role=list],
+ol[role=list],
+ul,
+ol,
+dl {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+a {
+  text-decoration: none;
+  display: inline-block;
+}
+
+img, picture {
+  display: block;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* Make images easier to work with */
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+:root {
+  --body: white;
+  --clock: white;
+  --shadodw: black;
+  --hour: black;
+  --hourPipe: black;
+  --minutePipe: gray;
+  --secondPipe: rgb(247, 0, 255);
+  --circleBorder: rgb(247, 0, 255);
+  --circleBg: black;
+  --btnShadow: white;
+  --opacity: 0.2;
+  --overlay: white;
+  --overOpac: 0.2 ;
+}
+
+:root:has(body.night) {
+  --body: black;
+  --clock: black;
+  --shadodw: white;
+  --hour: white;
+  --hourPipe: white;
+  --minutePipe: gray;
+  --secondPipe: rgb(247, 0, 255);
+  --circleBorder: rgb(247, 0, 255)ed;
+  --circleBg: white;
+  --btnShadow: rgb(247, 0, 255);
+  --opacity: 0.6;
+  --overlay: black;
+  --overOpac: 0.8 ;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  gap: 8vw;
+  background-color: var(--body);
+  background-image: url("../image/wallpaper.jpg");
+}
+body *:not(.pipe) {
+  transition: 0.6s;
+}
+body .overlay {
+  position: absolute;
+  inset: 0;
+  background-color: var(--overlay);
+  opacity: var(--overOpac);
+  z-index: -3;
+}
+body .clock {
+  align-self: flex-end;
+  width: 50%;
+  max-width: 562.5px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  box-shadow: 0 0 2vw 1px var(--shadodw), inset 0 0 2vw 1px gray;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--clock);
+  display: grid;
+  place-content: center;
+  isolation: isolate;
+}
+body .clock::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 98%;
+  aspect-ratio: 1;
+  background-image: url("../image/emy.jpg");
+  background-size: cover;
+  border-radius: 50%;
+  overflow: hidden;
+  background-position: center;
+  z-index: -2;
+}
+body .clock::after {
+  content: "";
+  position: absolute;
+  background-color: black;
+  width: 100%;
+  height: 100%;
+  opacity: var(--opacity);
+  z-index: -1;
+}
+body .clock .numbersContainer {
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  font-weight: 600;
+}
+body .clock .numbersContainer li {
+  position: absolute;
+}
+body .clock .numbersContainer li span {
+  display: inline-block;
+  transform: rotate(calc(30deg * var(--i)));
+  font-size: min(5vw, 3rem);
+  color: var(--hour);
+}
+body .clock .numbersContainer .hourPipe {
+  background-color: var(--hourPipe);
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: left;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+body .clock .numbersContainer .minutePipe {
+  background-color: var(--minutePipe);
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: left;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+body .clock .numbersContainer .secondPipe {
+  background-color: var(--secondPipe);
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: left;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+body .clock .numbersContainer .circle {
+  width: 0.6rem;
+  aspect-ratio: 1;
+  background-color: var(--circleBg);
+  position: absolute;
+  border-radius: 50%;
+  border: 3px solid var(--circleBorder);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+body button {
+  align-self: flex-start;
+  padding: 2vw 6vw;
+  outline: none;
+  border: none;
+  background: var(--clock);
+  color: var(--hour);
+  box-shadow: 0 0 2vw 1px var(--shadodw), inset 0 0 2vw 1px gray;
+  font-variant: small-caps;
+  font-size: min(4vw, 2rem);
+  transition: 0.4s;
+  cursor: pointer;
+}
+body button:hover {
+  box-shadow: 0 0 2vw 1px var(--shadodw), inset 0 0 2vw 1px gray, inset 0 0 4vw 2px gray, inset 0 0 6vw 3px gray, inset 0 0 8vw 4px gray, inset 0 0 10vw 5px gray, inset 0 0 12vw 6px gray, inset 0 0 14vw 7px gray;
+  transform: scale(1.1);
+}
+body button span {
+  filter: drop-shadow(0 0 3px var(--btnShadow)) drop-shadow(0 0 6px var(--btnShadow)) drop-shadow(0 0 9px var(--btnShadow)) drop-shadow(0 0 12px var(--btnShadow));
+}
+
+.ripple-btn {
+  background-color: lightgray;
+  box-shadow: 0px 2px 10px -3px black;
+  padding: 1rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  position: relative;
+}
+.ripple-btn:hover .bg {
+  transform: scale(1);
+}
+.ripple-btn .bg {
+  background: linear-gradient(45deg, purple, pink, blue);
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  transform: scale(0);
+  transition: 0.1s;
+}
+.ripple-btn p {
+  position: relative;
+  z-index: 1;
+}
+
+.special-heading {
+  font-variant: small-caps;
+  position: relative;
+  color: white;
+  text-align: center;
+  line-height: 1;
+  filter: drop-shadow(0 0 5px white);
+}
+.special-heading::before {
+  position: absolute;
+  content: "";
+  width: 50%;
+  height: 3px;
+  background-color: rgb(74, 74, 240);
+  bottom: -0.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+}/*# sourceMappingURL=style.min.css.map */
